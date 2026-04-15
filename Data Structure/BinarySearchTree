@@ -1,0 +1,147 @@
+class BST:
+    def __init__(self,data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+    def addChild(self, data):
+        if data == self.data:
+            return
+        elif data < self.data:
+            if self.left:
+                self.left.addChild(data)
+            else:
+                self.left = BST(data)
+                
+        elif data > self.data:
+            if self.right:
+                self.right.addChild(data)
+            else:
+                self.right = BST(data)
+    def inOrderTraversal(self):
+        elements = []
+        # left tree
+        if self.left:
+            elements += self.left.inOrderTraversal()
+        # base node
+        elements.append(self.data)
+        # right tree
+        if self.right:
+            elements += self.right.inOrderTraversal()
+        return elements
+    
+    def postOrderTraversal(self):
+        elements = []
+
+        # left tree
+        if self.left:
+            elements += self.left.postOrderTraversal()
+        # right tree
+        if self.right:
+            elements += self.right.postOrderTraversal()
+        # base node
+        elements.append(self.data)
+        return elements
+    
+    def preOrderTraversal(self):
+        
+        elements = []
+        # base node
+        elements.append(self.data)
+        # left tree
+        if self.left:
+            elements += self.left.preOrderTraversal()
+        # right tree
+        if self.right:
+            elements += self.right.preOrderTraversal()
+        
+        return elements
+    
+
+    def searchTree(self,val):
+        if self.data == val:
+            return True
+        if val < self.data:
+            if self.left:
+                return self.left.searchTree(val)
+        elif val > self.data:
+            if self.right:
+                return self.right.searchTree(val)
+        return False
+    
+    def findMin(self):
+        if self.left is None:
+            return self.data
+        return self.left.findMin()
+        # current = self
+        # while current.left:
+        #     current = current.left
+        # return current.data
+
+    def findMax(self):
+        if self.right is None:
+            return self.data
+        return self.right.findMax()
+        # current = self
+        # while current.right:
+        #     current = current.right
+        # return current.data
+
+    def calculateSum(self):
+        total = self.data
+        if self.left:
+            total += self.left.calculateSum()
+        if self.right:
+            total += self.right.calculateSum()
+        return total
+    
+
+    def delete(self,val):       
+        if val < self.data:
+            if self.left:
+                self.left = self.left.delete(val)
+        elif val > self.data:
+            if self.right:
+                self.right = self.right.delete(val)
+        else:
+            if self.left is None and self.right is None:
+                return None
+            elif self.left is None:
+                return self.right
+            elif self.right is None:
+                return self.left
+            # Approach 1
+            # min_value = self.right.findMin() #find minimum from right sub tree
+            # self.data = min_value # copy min value to deleting node
+            # self.right = self.right.delete(min_value) # delete duplicate node from right sub tree and return 
+
+            # Approach 2
+            replace_with = self.left.findMax()
+            self.data = replace_with
+            self.left = self.left.delete(replace_with)
+        return self
+    
+    
+
+def build_tree(data):
+    root = BST(data[0])
+    for i in range(1,len(data)):
+        root.addChild(data[i])
+    return root
+
+if __name__ == '__main__':
+    numbers = [42, 7, 89, 15, 63, 2, 91, 38, 54, 11]
+
+    numbers_tree = build_tree(numbers)
+
+    # print("Minimum : ",numbers_tree.findMin())
+    # print("Maximum : ",numbers_tree.findMax())
+    # print("Sum : ",numbers_tree.calculateSum())
+    # print("In-order  : ",numbers_tree.inOrderTraversal()," Left -> Root -> Right")
+    # print("Post-order  : ",numbers_tree.postOrderTraversal()," Left -> Right -> Root")
+    # print("Pre-order  : ",numbers_tree.preOrderTraversal()," Root -> Left -> Right")
+    numbers_tree.delete(42)
+    print("after delete")
+    print("In-order - ",numbers_tree.inOrderTraversal()," Left -> Root -> Right")
+    print("Post-order  : ",numbers_tree.postOrderTraversal()," Left -> Right -> Root")
+    print("Pre-order  : ",numbers_tree.preOrderTraversal()," Root -> Left -> Right")

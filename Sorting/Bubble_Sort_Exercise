@@ -1,0 +1,24 @@
+def bubble_sort(list,key=None):
+
+    for i in range(len(list)-1):
+        swapped  = False
+        for j in range(len(list)-1-i):
+            k = j+1
+            if list[j][key] > list[k][key]:
+                temp = list[j]
+                list[j] = list[k]
+                list[k] = temp
+                swapped = True
+        if not swapped: #Breaks outer loop if list is already sorted
+            break
+    return list
+
+if __name__ == "__main__":
+    elements = [
+        { 'name': 'mona',   'transaction_amount': 1000, 'device': 'iphone-10'},
+        { 'name': 'dhaval', 'transaction_amount': 400,  'device': 'google pixel'},
+        { 'name': 'kathy',  'transaction_amount': 200,  'device': 'vivo'},
+        { 'name': 'aamir',  'transaction_amount': 800,  'device': 'iphone-8'},
+    ]
+
+    print("sorted list : ",bubble_sort(elements, key='name'))
