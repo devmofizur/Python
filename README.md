@@ -3,12 +3,12 @@ This repository is a comprehensive collection of my progress, experiments, and i
 
 ---
 
-#### | CORE CONCEPTS |
+#### CORE CONCEPTS :
 * **OOP** : Object-Oriented Programming principles, including inheritance, encapsulation, and polymorphism.
 * **Data Structure/** : Implementations of fundamental structures (Lists, Stacks, Queues, etc.).
 * **Sorting** : Common sorting algorithms implemented from scratch.
 
-#### | ADVANCED FEATURES |
+#### ADVANCED FEATURES :
 * **Argparser.py** : Command-line argument parsing for building CLI tools.
 * **Decorator.py** : Function and class decorators for meta-programming.
 * **Generator.py & Iterators.py** : Efficient memory management and custom iteration logic.
